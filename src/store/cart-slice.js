@@ -40,6 +40,7 @@ const cartSlice = createSlice({
         }
     }
   },
+  
 
 });
 
