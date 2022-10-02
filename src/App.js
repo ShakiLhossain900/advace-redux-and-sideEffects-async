@@ -26,4 +26,4 @@ function App() {
 
 export default App;
 
-
+//complete using effect to the redux 
