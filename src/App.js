@@ -37,3 +37,4 @@ export default App;
 //3 to 5 i need to sleep
  //5 to 7 need to doing the code and the 7 to 10 i need to take preparation for exam
  //10 to 5  i will do code 
+ //than 9 am to 1 pm study than 2 to 5 again preparation (code 5 to 7) 
