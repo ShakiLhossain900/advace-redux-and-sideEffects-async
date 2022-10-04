@@ -10,10 +10,19 @@ function App() {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    fetch("https://redux-5703a-default-rtdb.firebaseio.com/cart.json", {
-      method: "PUT",
-      body: JSON.stringify(cart),
-    });
+    const sendCartData = async () => {
+      const response = await fetch(
+        "https://redux-5703a-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "PUT",
+          body: JSON.stringify(cart),
+        }
+      );
+       
+      
+
+      const responseData = await response.json();
+    };
   }, [cart]); //whenever cart changes the data will be re-execute by using the cart dependency
 
   return (
@@ -26,36 +35,8 @@ function App() {
 
 export default App;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//the changing plan 
+//the changing plan
 //3 to 5 i need to sleep
- //5 to 7 need to doing the code and the 7 to 10 i need to take preparation for exam
- //10 to 5  i will do code 
- //than 9 am to 1 pm study than 2 to 5 again preparation (code 5 to 7 pm ) than 7 to 10 preparation for exam than 10 to 5 code agian
+//5 to 7 need to doing the code and the 7 to 10 i need to take preparation for exam
+//10 to 5  i will do code
+//than 9 am to 1 pm study than 2 to 5 again preparation (code 5 to 7 pm ) than 7 to 10 preparation for exam than 10 to 5 code agian
