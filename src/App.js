@@ -26,11 +26,6 @@ function App() {
 
 export default App;
 
-//complete using effect to the redux 
-//10,11,12,13 need to complete before 3 pm 03 octeber
-//tomorrow i will be complete this reducx module 
-// than next module i need to run for it 20 building a multi page SPA with react router
-
 
 
 //the changing plan 
