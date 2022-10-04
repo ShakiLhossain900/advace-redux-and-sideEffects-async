@@ -19,7 +19,9 @@ function App() {
         }
       );
        
-      
+      if(!response.ok) {
+        throw new Error('Sending cart data Failed')
+      }
 
       const responseData = await response.json();
     };
