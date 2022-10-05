@@ -1,23 +1,28 @@
-import { useEffect } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useEffect, Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
-import {uiActions} from './store/ui-slice'
+import { uiActions } from "./store/ui-slice";
+import Notification from "./components/UI/Notification";
+
+let inInitail = true;
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
-
+  const notification = useSelector((state) => state.ui.notification);
   useEffect(() => {
     const sendCartData = async () => {
-      dispatch(uiActions.showNotification({
-        status:'pending',
-        title:'sending..... ',
-        message:'Sending cart data!'
-      }))
+      dispatch(
+        uiActions.showNotification({
+          status: "pending",
+          title: "sending..... ",
+          message: "Sending cart data!",
+        })
+      );
       const response = await fetch(
         "https://redux-practice-10cc2-default-rtdb.firebaseio.com/cart.json",
         {
@@ -30,30 +35,66 @@ function App() {
         throw new Error("Sending cart data Failed");
       }
 
-
-      dispatch(uiActions.showNotification({
-        status:'success',
-        title:'success..... ',
-        message:'Sent cart data successfully!'
-      }))
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "success!",
+          message: "Sent cart data successfully!",
+        })
+      );
     };
-    sendCartData().catch(error =>{
-      dispatch(uiActions.showNotification({
-        status:'error',
-        title:'Error! ',
-        message:'Sending cart data failed!'
-      }))
-    })
-  }, [cart,dispatch]);//cart here not only dependensy here now dispatch also dependensy here //whenever cart changes the data will be re-execute by using the cart dependency
+    //for amar notification ta age theke show kore tai ami ata soriye neoar jonnu ata koreci
+    if(inInitail){
+      return;
+    }
+    sendCartData().catch((error) => {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error! ",
+          message: "Sending cart data failed!",
+        })
+      );
+    });
+  }, [cart, dispatch]);
+  // here dispatch will never change only cart will be change
+  //cart here not only dependensy here now dispatch also dependensy here //whenever cart changes the data will be re-execute by using the cart dependency
   return (
-    <Layout>
-      {showCart && <Cart />}
-      <Products />
-    </Layout>
+    <Fragment>
+      {notification && <Notification
+      state={notification.status}
+      title={notification.title}
+      message={notification.message}
+      />}
+      <Layout>
+        {showCart && <Cart />}
+        <Products />
+      </Layout>
+    </Fragment>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //the changing plan
 //3 to 5 i need to sleep
