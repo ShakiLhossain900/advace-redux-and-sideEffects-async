@@ -79,3 +79,7 @@ function App() {
 }
 
 export default App;
+
+
+// redux thunk use kori nai video 011 te ami ager tai rekheci 
+
