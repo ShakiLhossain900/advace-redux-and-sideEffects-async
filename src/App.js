@@ -1,16 +1,23 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
+import {uiActions} from './store/ui-slice'
 
 function App() {
+  const dispatch = useDispatch()
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     const sendCartData = async () => {
+      dispatch(uiActions.showNotification({
+        status:'pending',
+        title:'sending..... ',
+        message:'Sending cart data!'
+      }))
       const response = await fetch(
         "https://redux-practice-10cc2-default-rtdb.firebaseio.com/cart.json",
         {
@@ -23,10 +30,20 @@ function App() {
         throw new Error("Sending cart data Failed");
       }
 
-      const responseData = await response.json();
 
-      
+      dispatch(uiActions.showNotification({
+        status:'success',
+        title:'success..... ',
+        message:'Sent cart data successfully!'
+      }))
     };
+    sendCartData().catch(error =>{
+      dispatch(uiActions.showNotification({
+        status:'error',
+        title:'Error! ',
+        message:'Sending cart data failed!'
+      }))
+    })
   }, [cart]); //whenever cart changes the data will be re-execute by using the cart dependency
   return (
     <Layout>
