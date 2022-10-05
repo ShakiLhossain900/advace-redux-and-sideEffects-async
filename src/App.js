@@ -7,13 +7,14 @@ import Products from "./components/Shop/Products";
 import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
 
-let inInitail = true;
+let isInitail = true;
 
 function App() {
   const dispatch = useDispatch();
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
   const notification = useSelector((state) => state.ui.notification);
+  
   useEffect(() => {
     const sendCartData = async () => {
       dispatch(
@@ -43,10 +44,13 @@ function App() {
         })
       );
     };
+    
     //for amar notification ta age theke show kore tai ami ata soriye neoar jonnu ata koreci
-    if(inInitail){
+    if(isInitail){
+      isInitail = false;
       return;
-    }
+    };
+
     sendCartData().catch((error) => {
       dispatch(
         uiActions.showNotification({
