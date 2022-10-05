@@ -44,7 +44,7 @@ function App() {
         message:'Sending cart data failed!'
       }))
     })
-  }, [cart]); //whenever cart changes the data will be re-execute by using the cart dependency
+  }, [cart,dispatch]);//cart here not only dependensy here now dispatch also dependensy here //whenever cart changes the data will be re-execute by using the cart dependency
   return (
     <Layout>
       {showCart && <Cart />}
