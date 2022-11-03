@@ -52,16 +52,23 @@ export const sendCartData = (cart) => {
         'https://redux-5703a-default-rtdb.firebaseio.com/cart.json',
         {
           method: 'PUT',
+          headers: { 'Content-Type': 'application/json'},
           body: JSON.stringify({
             items: cart.items,
             totalQuantity: cart.totalQuantity,
           }),
         }
-      );
+      )
+      .then(res => res.json())
+      .then(data => { 
+        if(!data) {
+          throw new Error('Sending cart data failed.');
+        }
+      })
 
-      if (!response.ok) {
-        throw new Error('Sending cart data failed.');
-      }
+      // if (!response.ok) {
+      //   throw new Error('Sending cart data failed.');
+      // }
     };
 
     try {
